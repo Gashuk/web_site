@@ -1,0 +1,46 @@
+import React, {useContext} from 'react';
+import {Button, Form, Modal} from "react-bootstrap";
+import {Context} from "../../../index";
+import {observer} from "mobx-react-lite";
+import {useHistory} from "react-router-dom";
+import {ADMIN_ROUTE, GENRE_ROUTE} from "../../../utils/consts";
+
+const CreateCountry = observer(({show, onHide}) => {
+    const {table} = useContext(Context)
+
+    const history = useHistory()
+    console.log(table)
+    return (
+        <Modal
+            show = {show}
+            onHide={onHide}
+            size="lg"
+            centered
+        >
+            <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-vcenter">
+                    Изменение страны
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Form key={table.selectedCountry.id}>
+                    Код
+                    <Form.Control
+                        placeholder={table.selectedCountry.id}
+                        disabled
+                    />
+                    Название
+                    <Form.Control
+                        placeholder={table.selectedCountry.name}
+                    />
+                </Form>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="outline-success" onClick={onHide}>Изменить</Button>
+                <Button variant="outline-danger" onClick={onHide}>Закрыть</Button>
+            </Modal.Footer>
+        </Modal>
+    );
+});
+
+export default CreateCountry;
